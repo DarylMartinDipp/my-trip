@@ -2,9 +2,11 @@ package com.dauphine.my_trip.controllers;
 
 import com.dauphine.my_trip.models.City;
 import com.dauphine.my_trip.services.CityService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,28 +24,50 @@ public class CityController {
     }
 
     @GetMapping
+    @Operation(
+            summary = "Get all cities endpoint",
+            description = "Return all cities that are in the database, sorted " +
+                    "by alphabetical order."
+    )
     public List<City> getAllCities() {
-        return cityService.getAllCities();
+        List <City> citiesToGet = cityService.getAllCities();
+        citiesToGet.sort(Comparator.comparing(City::getName));
+        return citiesToGet;
     }
 
     @GetMapping("/{id}")
+    @Operation(
+            summary = "Get a city by ID endpoint",
+            description = "Return a certain city according to its id."
+    )
     public City getCityById(@PathVariable UUID id) {
         return cityService.getCityById(id);
     }
 
     @PostMapping
+    @Operation(
+            summary = "Create a new city endpoint",
+            description = "Create a new city with all its data."
+    )
     public City createCity(@RequestBody String name, @RequestBody String country) {
         return cityService.createCity(name, country);
     }
 
     @PutMapping("/{id}")
+    @Operation(
+            summary = "Update a city endpoint",
+            description = "Update a city according to the id."
+    )
     public City updateCity(@PathVariable UUID id, @RequestBody String name, @RequestBody String country) {
         return cityService.updateCity(id, name, country);
     }
 
     @DeleteMapping("/{id}")
+    @Operation(
+            summary = "Delete a city endpoint",
+            description = "Delete an existing city according to the id."
+    )
     public void deleteCity(@PathVariable UUID id) {
         cityService.deleteCity(id);
     }
-
 }

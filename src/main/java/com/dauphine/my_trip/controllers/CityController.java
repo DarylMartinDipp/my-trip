@@ -35,13 +35,13 @@ public class CityController {
         return citiesToGet;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{cityId}")
     @Operation(
             summary = "Get a city by ID endpoint",
             description = "Return a certain city according to its id."
     )
-    public City getCityById(@PathVariable UUID id) {
-        return cityService.getCityById(id);
+    public City getCityById(@PathVariable UUID cityId) {
+        return cityService.getCityById(cityId);
     }
 
     @PostMapping
@@ -53,21 +53,21 @@ public class CityController {
         return cityService.createCity(name, country);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{cityId}")
     @Operation(
             summary = "Update a city endpoint",
             description = "Update a city according to the id."
     )
-    public City updateCity(@PathVariable UUID id, @RequestBody String name, @RequestBody String country) {
-        return cityService.updateCity(id, name, country);
+    public City updateCity(@PathVariable UUID cityId, @RequestBody String name, @RequestBody String country) {
+        return cityService.updateCity(cityId, name, country);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{cityId}")
     @Operation(
             summary = "Delete a city endpoint",
             description = "Delete an existing city according to the id."
     )
-    public void deleteCity(@PathVariable UUID id) {
-        cityService.deleteCity(id);
+    public void deleteCity(@PathVariable UUID cityId) {
+        cityService.deleteCity(cityId);
     }
 }

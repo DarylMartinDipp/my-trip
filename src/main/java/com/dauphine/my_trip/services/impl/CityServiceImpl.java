@@ -35,6 +35,11 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
+    public List<City> getCityByNameIgnoreCase(String name) {
+        return cityRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    @Override
     public City createCity(String newCityName, String newCityCountry) throws CityNameAlreadyExistsException {
         Optional<City> existingCityByName = cityRepository.findByName(newCityName);
         if (existingCityByName.isPresent()) throw new CityNameAlreadyExistsException(newCityName);

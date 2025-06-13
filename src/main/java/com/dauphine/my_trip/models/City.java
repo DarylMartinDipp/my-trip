@@ -1,14 +1,22 @@
 package com.dauphine.my_trip.models;
 
+import jakarta.persistence.*;
+
 import java.util.UUID;
 
+@Entity
 public class City {
+    @Id
+    @Column
     private UUID id;
+
+    @Column
     private String name;
+
+    @Column
     private String country;
 
-    public City() {
-    }
+    public City() {}
 
     public City(String name, String country) {
         this.id = UUID.randomUUID();

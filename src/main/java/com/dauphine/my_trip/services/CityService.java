@@ -12,11 +12,11 @@ public interface CityService {
 
     List<City> getAllCities();
 
-    City getCityById(UUID id) throws CityNotFoundByIdException;
+    City getCityById(UUID cityId) throws CityNotFoundByIdException;
 
-    Optional<City> getCityByName(String name);
+    Optional<City> getCityByName(String cityName);
 
-    List<City> getCityByNameIgnoreCase(String name);
+    List<City> getCityByNameIgnoreCase(String cityName);
 
     City createCity(String newCityName, String newCityCountry) throws CityNameAlreadyExistsException;
 

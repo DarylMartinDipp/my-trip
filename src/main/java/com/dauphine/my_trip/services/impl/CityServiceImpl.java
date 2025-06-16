@@ -35,13 +35,13 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public List<City> getCityByNameIgnoreCase(String name) {
-        return cityRepository.findByNameContainingIgnoreCase(name);
+    public List<City> getCityByNameIgnoreCase(String cityName) {
+        return cityRepository.findByNameContainingIgnoreCase(cityName);
     }
 
     @Override
     public City createCity(String newCityName, String newCityCountry) throws CityNameAlreadyExistsException {
-        Optional<City> existingCityByName = cityRepository.findByName(newCityName);
+        Optional<City> existingCityByName = getCityByName(newCityName);
         if (existingCityByName.isPresent()) throw new CityNameAlreadyExistsException(newCityName);
 
         City newCity = new City(newCityName, newCityCountry);
@@ -52,7 +52,7 @@ public class CityServiceImpl implements CityService {
     public City updateCity(UUID cityId, String newCityName, String newCityCountry) throws CityNotFoundByIdException, CityNameAlreadyExistsException {
         City cityToUpdate = getCityById(cityId);
 
-        Optional<City> existingCityByName = cityRepository.findByName(newCityName);
+        Optional<City> existingCityByName = getCityByName(newCityName);
         if (existingCityByName.isPresent() && !existingCityByName.get().equals(cityToUpdate))
             throw new CityNameAlreadyExistsException(newCityName);
 

@@ -80,10 +80,10 @@ public class CityController {
     )
     public ResponseEntity<City> updateCity(@PathVariable UUID cityId, @RequestBody CreateCityRequest cityToUpdate) {
         try {
-            City user = cityService.updateCity(
+            City city = cityService.updateCity(
                     cityId, cityToUpdate.getName(), cityToUpdate.getCountry()
             );
-            return ResponseEntity.ok(user);
+            return ResponseEntity.ok(city);
         } catch (CityNotFoundByIdException e) {
             return ResponseEntity.notFound().build();
         } catch (CityNameAlreadyExistsException e) {

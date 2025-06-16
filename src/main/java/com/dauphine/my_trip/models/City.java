@@ -5,15 +5,16 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
+@Table(name = "city")
 public class City {
     @Id
-    @Column
+    @Column(name = "id")
     private UUID id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    @Column
+    @Column(name = "country")
     private String country;
 
     public City() {}

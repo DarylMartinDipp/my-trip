@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/accommodation")
+@RequestMapping("/accommodations")
 @Tag(
         name = "Accommodation controller API",
         description = "Accommodation-related endpoints"
@@ -30,7 +30,7 @@ public class AccommodationController {
 
     @GetMapping
     @Operation(
-            summary = "Get all the accommodations endpoint",
+            summary = "Get all accommodations endpoint",
             description = "Return all accommodations that are in the database, sorted " +
                     "by alphabetical order."
     )
@@ -68,7 +68,7 @@ public class AccommodationController {
                     accommodationToCreate.getPrice(), accommodationToCreate.getAddress(), accommodationToCreate.getCity()
             );
             return ResponseEntity
-                    .created(URI.create("accommodation/" + accommodation.getId()))
+                    .created(URI.create("accommodations/" + accommodation.getId()))
                     .body(accommodation);
         } catch (AccommodationNameAlreadyExistsException e) {
             return ResponseEntity.badRequest().build();

@@ -19,9 +19,14 @@ public interface AccommodationService {
 
     List<Accommodation> getAccommodationByNameIgnoreCase(String accommodationName);
 
-    Accommodation createAccommodation(String newAccommodationName, String newAccommodationType, int newAccommodationRating, int newAccommodationPrice, String newAccommodationAddress, City newAccommodationCity) throws AccommodationNameAlreadyExistsException;
+    Accommodation createAccommodation(String newAccommodationName, String newAccommodationType, int newAccommodationRating,
+                                      int newAccommodationPrice, String newAccommodationAddress, City newAccommodationCity)
+            throws AccommodationNameAlreadyExistsException;
 
-    Accommodation updateAccommodation(UUID accommodationId, String newAccommodationName, String newAccommodationType, int newAccommodationRating, int newAccommodationPrice, String newAccommodationAddress, City newAccommodationCity) throws AccommodationNotFoundByIdException, AccommodationNameAlreadyExistsException;
+    Accommodation updateAccommodation(UUID accommodationId, String newAccommodationName, String newAccommodationType,
+                                      int newAccommodationRating, int newAccommodationPrice,
+                                      String newAccommodationAddress,City newAccommodationCity)
+            throws AccommodationNotFoundByIdException, AccommodationNameAlreadyExistsException;
 
     void deleteAccommodation(UUID accommodationToDeleteId) throws AccommodationNotFoundByIdException;
 }

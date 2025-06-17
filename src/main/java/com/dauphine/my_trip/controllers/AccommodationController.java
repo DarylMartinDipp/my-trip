@@ -36,7 +36,8 @@ public class AccommodationController {
     )
     public ResponseEntity<List<Accommodation>> getAllAccommodations(@RequestParam (required = false) String accommodationName) {
         List<Accommodation> accommodationsToGet = accommodationName == null || accommodationName.isBlank() ?
-                accommodationService.getAllAccommodations() : accommodationService.getAccommodationByNameIgnoreCase(accommodationName);
+                accommodationService.getAllAccommodations() :
+                accommodationService.getAccommodationByNameIgnoreCase(accommodationName);
         accommodationsToGet.sort(Comparator.comparing(Accommodation::getName));
         return ResponseEntity.ok(accommodationsToGet);
     }
@@ -63,7 +64,8 @@ public class AccommodationController {
     public ResponseEntity<Accommodation> createAccommodation(@RequestBody CreateAccommodationRequest accommodationToCreate) {
         try {
             Accommodation accommodation = accommodationService.createAccommodation(
-                    accommodationToCreate.getName(), accommodationToCreate.getType(), accommodationToCreate.getRating(), accommodationToCreate.getPrice(), accommodationToCreate.getAddress(), accommodationToCreate.getCity()
+                    accommodationToCreate.getName(), accommodationToCreate.getType(), accommodationToCreate.getRating(),
+                    accommodationToCreate.getPrice(), accommodationToCreate.getAddress(), accommodationToCreate.getCity()
             );
             return ResponseEntity
                     .created(URI.create("accommodation/" + accommodation.getId()))
@@ -78,10 +80,12 @@ public class AccommodationController {
             summary = "Update an accommodation endpoint",
             description = "Update an accommodation according to the id."
     )
-    public ResponseEntity<Accommodation> updateAccommodation(@PathVariable UUID accommodationId, @RequestBody CreateAccommodationRequest accommodationToUpdate) {
+    public ResponseEntity<Accommodation> updateAccommodation(@PathVariable UUID accommodationId,
+                                                             @RequestBody CreateAccommodationRequest accommodationToUpdate) {
         try {
             Accommodation accommodation = accommodationService.updateAccommodation(
-                    accommodationId, accommodationToUpdate.getName(), accommodationToUpdate.getType(), accommodationToUpdate.getRating(), accommodationToUpdate.getPrice(), accommodationToUpdate.getAddress(), accommodationToUpdate.getCity()
+                    accommodationId, accommodationToUpdate.getName(), accommodationToUpdate.getType(), accommodationToUpdate.getRating(),
+                    accommodationToUpdate.getPrice(), accommodationToUpdate.getAddress(), accommodationToUpdate.getCity()
             );
             return ResponseEntity.ok(accommodation);
         } catch (AccommodationNotFoundByIdException e) {

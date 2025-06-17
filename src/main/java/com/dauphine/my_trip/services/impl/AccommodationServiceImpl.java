@@ -27,7 +27,8 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public Accommodation getAccommodationById(UUID accommodationId) throws AccommodationNotFoundByIdException {
-        return accommodationRepository.findById(accommodationId).orElseThrow(() -> new AccommodationNotFoundByIdException(accommodationId));
+        return accommodationRepository.findById(accommodationId).orElseThrow(() ->
+                new AccommodationNotFoundByIdException(accommodationId));
     }
 
     @Override
@@ -41,16 +42,22 @@ public class AccommodationServiceImpl implements AccommodationService {
     }
 
     @Override
-    public Accommodation createAccommodation(String newAccommodationName, String newAccommodationType, int newAccommodationRating, int newAccommodationPrice, String newAccommodationAddress, City newAccommodationCity) throws AccommodationNameAlreadyExistsException {
+    public Accommodation createAccommodation(String newAccommodationName, String newAccommodationType,
+                                             int newAccommodationRating, int newAccommodationPrice, String newAccommodationAddress,
+                                             City newAccommodationCity) throws AccommodationNameAlreadyExistsException {
         Optional<Accommodation> existingAccommodationByName = getAccommodationByName(newAccommodationName);
         if (existingAccommodationByName.isPresent()) throw new AccommodationNameAlreadyExistsException(newAccommodationName);
 
-        Accommodation newAccommodation = new Accommodation(newAccommodationName, newAccommodationType, newAccommodationRating, newAccommodationPrice, newAccommodationAddress, newAccommodationCity);
+        Accommodation newAccommodation = new Accommodation(newAccommodationName, newAccommodationType,
+                newAccommodationRating,newAccommodationPrice, newAccommodationAddress, newAccommodationCity);
         return accommodationRepository.save(newAccommodation);
     }
 
     @Override
-    public Accommodation updateAccommodation(UUID accommodationId, String newAccommodationName, String newAccommodationType, int newAccommodationRating, int newAccommodationPrice, String newAccommodationAddress, City newAccommodationCity) throws AccommodationNotFoundByIdException, AccommodationNameAlreadyExistsException {
+    public Accommodation updateAccommodation(UUID accommodationId, String newAccommodationName,String newAccommodationType,
+                                             int newAccommodationRating, int newAccommodationPrice,
+                                             String newAccommodationAddress, City newAccommodationCity)
+            throws AccommodationNotFoundByIdException, AccommodationNameAlreadyExistsException {
         Accommodation accommodationToUpdate = getAccommodationById(accommodationId);
 
         Optional<Accommodation> existingAccommodationByName = getAccommodationByName(newAccommodationName);

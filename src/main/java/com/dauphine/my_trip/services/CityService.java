@@ -20,7 +20,7 @@ public interface CityService {
 
     City createCity(String newCityName, String newCityCountry) throws CityNameAlreadyExistsException;
 
-    City updateCity(UUID cityId, String newCityName, String newCityCountry) throws CityNotFoundByIdException, CityNameAlreadyExistsException;
+    City updateCity(UUID cityId, String newCityName, String newCityCountry) throws CityNotFoundByIdException,CityNameAlreadyExistsException;
 
     void deleteCity(UUID cityToDeleteId) throws CityNotFoundByIdException;
 }

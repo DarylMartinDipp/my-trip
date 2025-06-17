@@ -42,6 +42,11 @@ public class AccommodationServiceImpl implements AccommodationService {
     }
 
     @Override
+    public List<Accommodation> getAccommodationsByCity(UUID cityId) {
+        return accommodationRepository.findByCity(cityId);
+    }
+
+    @Override
     public Accommodation createAccommodation(String newAccommodationName, String newAccommodationType,
                                              int newAccommodationRating, int newAccommodationPrice, String newAccommodationAddress,
                                              City newAccommodationCity) throws AccommodationNameAlreadyExistsException {

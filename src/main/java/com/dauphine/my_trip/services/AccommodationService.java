@@ -19,6 +19,8 @@ public interface AccommodationService {
 
     List<Accommodation> getAccommodationByNameIgnoreCase(String accommodationName);
 
+    List<Accommodation> getAccommodationsByCity(UUID cityId);
+
     Accommodation createAccommodation(String newAccommodationName, String newAccommodationType, int newAccommodationRating,
                                       int newAccommodationPrice, String newAccommodationAddress, City newAccommodationCity)
             throws AccommodationNameAlreadyExistsException;

@@ -56,6 +56,18 @@ public class AccommodationController {
         }
     }
 
+    @GetMapping("/by-city")
+    @Operation(
+            summary = "Get accommodations by city endpoint",
+            description = "Return all accommodations that are in a certain city, sorted" +
+                    "by alphabetical order."
+    )
+    public ResponseEntity<List<Accommodation>> getAccommodationsByCity(@RequestParam UUID cityId) {
+        List<Accommodation> accommodationsToGet = accommodationService.getAccommodationsByCity(cityId);
+        accommodationsToGet.sort(Comparator.comparing(Accommodation::getName));
+        return ResponseEntity.ok(accommodationsToGet);
+    }
+
     @PostMapping
     @Operation(
             summary = "Create a new accommodation endpoint",

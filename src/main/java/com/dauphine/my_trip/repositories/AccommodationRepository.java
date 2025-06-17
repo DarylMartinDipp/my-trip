@@ -14,4 +14,7 @@ public interface AccommodationRepository extends JpaRepository<Accommodation, UU
     List<Accommodation> findByNameContainingIgnoreCase(@Param("name") String name);
 
     Optional<Accommodation> findByName(String accommodationName);
+
+    @Query("SELECT acc FROM Accommodation acc WHERE acc.city.id = :cityId")
+    List<Accommodation> findByCity(UUID cityId);
 }

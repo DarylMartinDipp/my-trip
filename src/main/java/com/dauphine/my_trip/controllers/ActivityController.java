@@ -55,6 +55,18 @@ public class ActivityController {
         }
     }
 
+    @GetMapping("/by-city")
+    @Operation(
+            summary = "Get activities by city endpoint",
+            description = "Return all activities that are in a certain city, sorted" +
+                    "by alphabetical order."
+    )
+    public ResponseEntity<List<Activity>> getActivitiesByCity(@RequestParam UUID cityId) {
+        List<Activity> activitiesToGet = activityService.getActivitiesByCity(cityId);
+        activitiesToGet.sort(Comparator.comparing(Activity::getName));
+        return ResponseEntity.ok(activitiesToGet);
+    }
+
     @PostMapping
     @Operation(
             summary = "Create a new activity endpoint",

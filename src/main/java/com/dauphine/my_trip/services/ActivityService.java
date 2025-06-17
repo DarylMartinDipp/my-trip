@@ -19,6 +19,8 @@ public interface ActivityService {
 
     List<Activity> getActivitiesByNameIgnoreCase(String activityName);
 
+    List<Activity> getActivitiesByCity(UUID cityId);
+
     Activity createActivity(String newActivityName, String newActivityDescription, int newActivityDuration,
                             int newActivityPrice, City newActivityCity) throws ActivityNameAlreadyExistsException;
 

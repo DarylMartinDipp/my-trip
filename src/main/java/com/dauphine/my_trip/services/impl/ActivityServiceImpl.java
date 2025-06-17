@@ -41,6 +41,10 @@ public class ActivityServiceImpl implements ActivityService {
         return activityRepository.findByNameContainingIgnoreCase(activityName);
     }
 
+    public List<Activity> getActivitiesByCity(UUID cityId) {
+        return activityRepository.findByCity(cityId);
+    }
+
     @Override
     public Activity createActivity(String newActivityName, String newActivityDescription, int newActivityDuration,
                                    int newActivityPrice, City newActivityCity) throws ActivityNameAlreadyExistsException {

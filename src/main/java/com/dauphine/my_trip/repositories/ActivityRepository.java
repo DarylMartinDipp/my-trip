@@ -14,4 +14,7 @@ public interface ActivityRepository extends JpaRepository<Activity, UUID> {
     List<Activity> findByNameContainingIgnoreCase(@Param("name") String name);
 
     Optional<Activity> findByName(String activityName);
+
+    @Query("SELECT act FROM Activity act WHERE act.city.id = :cityId")
+    List<Activity> findByCity(UUID cityId);
 }

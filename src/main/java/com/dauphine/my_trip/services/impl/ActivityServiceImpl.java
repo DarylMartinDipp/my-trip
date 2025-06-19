@@ -63,7 +63,7 @@ public class ActivityServiceImpl implements ActivityService {
         Activity activityToUpdate = getActivityById(activityId);
 
         Optional<Activity> existingActivityByName = getActivityByName(newActivityName);
-        if (existingActivityByName.isPresent() && !existingActivityByName.get().getId().equals(activityId))
+        if (existingActivityByName.isPresent() && !existingActivityByName.get().equals(activityToUpdate))
             throw new ActivityNameAlreadyExistsException(newActivityName);
 
         activityToUpdate.setName(newActivityName);

@@ -70,6 +70,36 @@ public class StepController {
         return ResponseEntity.ok(stepsToGet);
     }
 
+    @PostMapping("/{stepId}/activities")
+    @Operation(
+            summary = "Add activities to step",
+            description = "Add a list of activities to a step, according to the " +
+                    "activities IDs and the step ID."
+    )
+    public ResponseEntity<Void> addActivitiesToStep(@PathVariable UUID stepId, @RequestBody List<UUID> activityIds) {
+        try {
+            stepService.addActivitiesToStep(stepId, activityIds);
+            return ResponseEntity.ok().build();
+        } catch (StepNotFoundByIdException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{stepId}/activities")
+    @Operation(
+            summary = "Remove activities to step",
+            description = "Remove a list of activities to a step, according to the " +
+                    "activities IDs and the step ID."
+    )
+    public ResponseEntity<Void> removeActivitiesFromStep(@PathVariable UUID stepId, @RequestBody List<UUID> activityIds) {
+        try {
+            stepService.removeActivitiesFromStep(stepId, activityIds);
+            return ResponseEntity.ok().build();
+        } catch (StepNotFoundByIdException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping
     @Operation(
             summary = "Create a new step endpoint",

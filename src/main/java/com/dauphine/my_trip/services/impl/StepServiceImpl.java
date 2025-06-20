@@ -1,10 +1,8 @@
 package com.dauphine.my_trip.services.impl;
 
 import com.dauphine.my_trip.exceptions.step.StepNotFoundByIdException;
-import com.dauphine.my_trip.models.Accommodation;
-import com.dauphine.my_trip.models.City;
-import com.dauphine.my_trip.models.Step;
-import com.dauphine.my_trip.models.Trip;
+import com.dauphine.my_trip.models.*;
+import com.dauphine.my_trip.repositories.ActivityRepository;
 import com.dauphine.my_trip.repositories.StepRepository;
 import com.dauphine.my_trip.services.StepService;
 import org.springframework.stereotype.Service;
@@ -15,9 +13,11 @@ import java.util.UUID;
 @Service
 public class StepServiceImpl implements StepService {
     private final StepRepository stepRepository;
+    private final ActivityRepository activityRepository;
 
-    public StepServiceImpl(StepRepository stepRepository) {
+    public StepServiceImpl(StepRepository stepRepository, ActivityRepository activityRepository) {
         this.stepRepository = stepRepository;
+        this.activityRepository = activityRepository;
     }
 
     @Override
@@ -34,6 +34,25 @@ public class StepServiceImpl implements StepService {
     public List<Step> getStepsByTripId(UUID tripId) {
         return stepRepository.findByTripId(tripId);
     }
+
+    @Override
+    public void addActivitiesToStep(UUID stepId, List<UUID> activityIds) throws StepNotFoundByIdException {
+        Step step = getStepById(stepId);
+        List<Activity> activitiesToAdd = activityRepository.findAllById(activityIds);
+        step.getActivities().addAll(activitiesToAdd);
+
+        stepRepository.save(step);
+    }
+
+    @Override
+    public void removeActivitiesFromStep(UUID stepId, List<UUID> activityIds) throws StepNotFoundByIdException {
+        Step step = getStepById(stepId);
+        List<Activity> activitiesToRemove = activityRepository.findAllById(activityIds);
+        step.getActivities().removeAll(activitiesToRemove);
+
+        stepRepository.save(step);
+    }
+
 
     @Override
     public Step createStep(int newDay, City newCity, Accommodation newAccommodation, Trip newTrip) {

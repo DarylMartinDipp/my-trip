@@ -17,6 +17,10 @@ public interface StepService {
 
     List<Step> getStepsByTripId(UUID tripId);
 
+    void addActivitiesToStep(UUID stepId, List<UUID> activityIds) throws StepNotFoundByIdException;
+
+    void removeActivitiesFromStep(UUID stepId, List<UUID> activityIds) throws StepNotFoundByIdException;
+
     Step createStep(int newDay, City newCity, Accommodation newAccommodation, Trip newTrip);
 
     Step updateStep(UUID stepId, int newDay, City newCity, Accommodation newAccommodation, Trip newTrip) throws StepNotFoundByIdException;

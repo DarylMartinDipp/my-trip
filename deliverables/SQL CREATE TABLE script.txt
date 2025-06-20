@@ -1,0 +1,78 @@
+-- Activer l'extension pour UUID (PostgreSQL)
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- TABLE: Ville
+CREATE TABLE City (
+    id UUID PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    country VARCHAR(100) NOT NULL
+);
+
+-- TABLE: PointInteret
+CREATE TABLE PointOfInterest (
+    id UUID PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    city_id UUID REFERENCES City(id) ON DELETE CASCADE
+);
+
+-- TABLE: Activite
+CREATE TABLE Activity (
+    id UUID PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    duration INT,
+    price INT,
+    city_id UUID REFERENCES City(id) ON DELETE CASCADE
+);
+
+-- TABLE: Hebergement
+CREATE TABLE Accommodation (
+    id UUID PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    type VARCHAR(100),
+    rating INT,
+    price INT,
+    address VARCHAR(255),
+    city_id UUID REFERENCES City(id) ON DELETE CASCADE
+);
+
+-- TABLE: Voyage
+CREATE TABLE Trip (
+    id UUID PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    startDate DATE,
+    endDate DATE
+);
+
+-- TABLE: Etape
+CREATE TABLE Step (
+    id UUID PRIMARY KEY,
+    day INT,
+    city_id UUID REFERENCES City(id) ON DELETE CASCADE,
+    accommodation_id UUID REFERENCES Accommodation(id),
+    trip_id UUID REFERENCES Trip(id) ON DELETE CASCADE
+);
+
+-- TABLE D’ASSOCIATION: Etape et Activite (Many-to-Many)
+CREATE TABLE Step_Activity (
+    step_id UUID REFERENCES Step(id) ON DELETE CASCADE,
+    activity_id UUID REFERENCES Activity(id) ON DELETE CASCADE,
+    PRIMARY KEY (step_id, activity_id)
+);
+
+-- TABLE D’ASSOCIATION: Etape_PointInteret (Many-to-Many)
+CREATE TABLE Step_POI (
+    step_id UUID REFERENCES Step(id) ON DELETE CASCADE,
+    poi_id UUID REFERENCES PointOfInterest(id) ON DELETE CASCADE,
+    PRIMARY KEY (step_id, poi_id)
+);
+
+-- TABLE: SeSitueA (relation entre deux villes)
+CREATE TABLE IsSituatedAt (
+    id UUID PRIMARY KEY,
+    distance INT,
+    travelTime INT,
+    city1_id UUID REFERENCES City(id) ON DELETE CASCADE,
+    city2_id UUID REFERENCES City(id) ON DELETE CASCADE
+);

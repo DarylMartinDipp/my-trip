@@ -36,6 +36,14 @@ public class Step {
     )
     private List<Activity> activities = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "step_poi",
+            joinColumns = @JoinColumn(name = "step_id"),
+            inverseJoinColumns = @JoinColumn(name = "poi_id")
+    )
+    private List<PointOfInterest> pointsOfInterest = new ArrayList<>();
+
     public Step() {}
 
     public Step(int day, City city, Accommodation accommodation, Trip trip) {
@@ -92,5 +100,13 @@ public class Step {
 
     public void setActivities(List<Activity> activities) {
         this.activities = activities;
+    }
+
+    public List<PointOfInterest> getPointOfInterests() {
+        return pointsOfInterest;
+    }
+
+    public void setPointOfInterests(List<PointOfInterest> pointOfInterests) {
+        this.pointsOfInterest = pointOfInterests;
     }
 }

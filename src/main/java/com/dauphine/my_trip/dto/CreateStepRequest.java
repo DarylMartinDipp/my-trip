@@ -13,13 +13,15 @@ public class CreateStepRequest {
     private Accommodation accommodation;
     private Trip trip;
     private List<UUID> activityIds;
+    private List<UUID> pointOfInterestIds;
 
-    public CreateStepRequest(int day, City city, Accommodation accommodation, Trip trip, List<UUID> activityIds) {
+    public CreateStepRequest(int day, City city, Accommodation accommodation, Trip trip, List<UUID> activityIds, List<UUID> pointOfInterestIds) {
         this.day = day;
         this.city = city;
         this.accommodation = accommodation;
         this.trip = trip;
         this.activityIds = activityIds;
+        this.pointOfInterestIds = pointOfInterestIds;
     }
 
     public int getDay() {
@@ -60,5 +62,13 @@ public class CreateStepRequest {
 
     public void setActivityIds(List<UUID> activityIds) {
         this.activityIds = activityIds;
+    }
+
+    public List<UUID> getPointOfInterestIds() {
+        return pointOfInterestIds;
+    }
+
+    public void setPointOfInterestIds(List<UUID> pointOfInterestIds) {
+        this.pointOfInterestIds = pointOfInterestIds;
     }
 }

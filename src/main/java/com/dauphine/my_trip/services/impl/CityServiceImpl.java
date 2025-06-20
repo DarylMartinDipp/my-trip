@@ -49,7 +49,8 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public City updateCity(UUID cityId, String newCityName, String newCityCountry) throws CityNotFoundByIdException, CityNameAlreadyExistsException {
+    public City updateCity(UUID cityId, String newCityName, String newCityCountry)
+            throws CityNotFoundByIdException, CityNameAlreadyExistsException {
         City cityToUpdate = getCityById(cityId);
 
         Optional<City> existingCityByName = getCityByName(newCityName);

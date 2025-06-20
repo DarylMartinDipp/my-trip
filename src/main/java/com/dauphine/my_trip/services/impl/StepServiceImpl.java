@@ -17,7 +17,8 @@ public class StepServiceImpl implements StepService {
     private final ActivityRepository activityRepository;
     private final PointOfInterestRepository pointOfInterestRepository;
 
-    public StepServiceImpl(StepRepository stepRepository, ActivityRepository activityRepository, PointOfInterestRepository pointOfInterestRepository) {
+    public StepServiceImpl(StepRepository stepRepository, ActivityRepository activityRepository,
+                           PointOfInterestRepository pointOfInterestRepository) {
         this.stepRepository = stepRepository;
         this.activityRepository = activityRepository;
         this.pointOfInterestRepository = pointOfInterestRepository;

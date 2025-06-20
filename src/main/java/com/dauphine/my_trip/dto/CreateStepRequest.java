@@ -15,7 +15,8 @@ public class CreateStepRequest {
     private List<UUID> activityIds;
     private List<UUID> pointOfInterestIds;
 
-    public CreateStepRequest(int day, City city, Accommodation accommodation, Trip trip, List<UUID> activityIds, List<UUID> pointOfInterestIds) {
+    public CreateStepRequest(int day, City city, Accommodation accommodation, Trip trip,
+                             List<UUID> activityIds, List<UUID> pointOfInterestIds) {
         this.day = day;
         this.city = city;
         this.accommodation = accommodation;

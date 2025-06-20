@@ -3,6 +3,7 @@ package com.dauphine.my_trip.services.impl;
 import com.dauphine.my_trip.exceptions.step.StepNotFoundByIdException;
 import com.dauphine.my_trip.models.*;
 import com.dauphine.my_trip.repositories.ActivityRepository;
+import com.dauphine.my_trip.repositories.PointOfInterestRepository;
 import com.dauphine.my_trip.repositories.StepRepository;
 import com.dauphine.my_trip.services.StepService;
 import org.springframework.stereotype.Service;
@@ -14,10 +15,12 @@ import java.util.UUID;
 public class StepServiceImpl implements StepService {
     private final StepRepository stepRepository;
     private final ActivityRepository activityRepository;
+    private final PointOfInterestRepository pointOfInterestRepository;
 
-    public StepServiceImpl(StepRepository stepRepository, ActivityRepository activityRepository) {
+    public StepServiceImpl(StepRepository stepRepository, ActivityRepository activityRepository, PointOfInterestRepository pointOfInterestRepository) {
         this.stepRepository = stepRepository;
         this.activityRepository = activityRepository;
+        this.pointOfInterestRepository = pointOfInterestRepository;
     }
 
     @Override
@@ -49,6 +52,24 @@ public class StepServiceImpl implements StepService {
         Step step = getStepById(stepId);
         List<Activity> activitiesToRemove = activityRepository.findAllById(activityIds);
         step.getActivities().removeAll(activitiesToRemove);
+
+        stepRepository.save(step);
+    }
+
+    @Override
+    public void addPointsOfInterestToStep(UUID stepId, List<UUID> pointOfInterestIds) throws StepNotFoundByIdException {
+        Step step = getStepById(stepId);
+        List<PointOfInterest> pointsOfInterestsToAdd = pointOfInterestRepository.findAllById(pointOfInterestIds);
+        step.getPointOfInterests().addAll(pointsOfInterestsToAdd);
+
+        stepRepository.save(step);
+    }
+
+    @Override
+    public void removePointsOfInterestFromStep(UUID stepId, List<UUID> pointOfInterestIds) throws StepNotFoundByIdException {
+        Step step = getStepById(stepId);
+        List<PointOfInterest> pointsOfInterestsToRemove = pointOfInterestRepository.findAllById(pointOfInterestIds);
+        step.getPointOfInterests().removeAll(pointsOfInterestsToRemove);
 
         stepRepository.save(step);
     }

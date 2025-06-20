@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -14,4 +15,7 @@ public interface TripRepository extends JpaRepository<Trip, UUID> {
     List<Trip> findByTitleContainingIgnoreCase(@Param("title") String title);
 
     Optional<Trip> findByTitle(String tripTitle);
+
+    @Query("SELECT t FROM Trip t WHERE t.startdate >= :currentDate")
+    List<Trip> findUpcomingTrips(@Param("currentDate") LocalDate currentDate);
 }

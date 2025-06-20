@@ -19,6 +19,8 @@ public interface TripService {
 
     List<Trip> getTripByTitleIgnoreCase(String tripTitle);
 
+    List<Trip> getUpcomingTrips();
+
     Trip createTrip(String newTripTitle, LocalDate newStartDate, LocalDate newEndDate) throws TripTitleAlreadyExistsException;
 
     Trip updateTrip(UUID tripId, String newTripTitle, LocalDate newStartDate, LocalDate newEndDate)

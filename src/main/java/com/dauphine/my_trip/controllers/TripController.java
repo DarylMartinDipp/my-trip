@@ -55,6 +55,17 @@ public class TripController {
         }
     }
 
+    @GetMapping("/upcoming")
+    @Operation(
+            summary = "Get upcoming trips endpoint",
+            description = "Return a list of upcoming trips."
+    )
+    public ResponseEntity<List<Trip>> getUpcomingTrips() {
+        List<Trip> upcomingTrips = tripService.getUpcomingTrips();
+        upcomingTrips.sort(Comparator.comparing(Trip::getStartdate));
+        return ResponseEntity.ok(upcomingTrips);
+    }
+
     @PostMapping
     @Operation(
             summary = "Create a new trip endpoint",

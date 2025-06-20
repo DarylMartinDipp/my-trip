@@ -41,6 +41,11 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
+    public List<Trip> getUpcomingTrips() {
+        return tripRepository.findUpcomingTrips(LocalDate.now());
+    }
+
+    @Override
     public Trip createTrip(String newTripTitle, LocalDate newStartDate, LocalDate newEndDate) throws TripTitleAlreadyExistsException {
         Optional<Trip> existingTripByName = getTripByTitle(newTripTitle);
         if (existingTripByName.isPresent()) throw new TripTitleAlreadyExistsException(newTripTitle);

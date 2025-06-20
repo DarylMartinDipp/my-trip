@@ -2,6 +2,8 @@ package com.dauphine.my_trip.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -25,6 +27,14 @@ public class Step {
     @ManyToOne
     @JoinColumn(name = "trip_id")
     private Trip trip;
+
+    @ManyToMany
+    @JoinTable(
+            name = "step_activity",
+            joinColumns = @JoinColumn(name = "step_id"),
+            inverseJoinColumns = @JoinColumn(name = "activity_id")
+    )
+    private List<Activity> activities = new ArrayList<>();
 
     public Step() {}
 
@@ -74,5 +84,13 @@ public class Step {
 
     public void setTrip(Trip trip) {
         this.trip = trip;
+    }
+
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
     }
 }
